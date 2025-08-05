@@ -205,6 +205,9 @@ document.addEventListener("DOMContentLoaded", () => {
   setTimeout(() => {
     usernameInput.focus()
   }, 800)
+
+  // Inicializar datos del sistema
+  initSystemData()
 })
 
 // Manejo de teclas especiales
@@ -228,3 +231,84 @@ document.addEventListener("keydown", (e) => {
     usernameInput.focus()
   }
 })
+
+// Funciones para los datos del sistema
+function initSystemData() {
+  // Animar contadores
+  animateCounters()
+
+  // Actualizar último acceso
+  updateLastAccess()
+
+  // Iniciar actualizaciones periódicas
+  setInterval(updateSystemStatus, 30000) // Cada 30 segundos
+}
+
+function animateCounters() {
+  const counters = document.querySelectorAll(".stat-number")
+
+  counters.forEach((counter) => {
+    const target = Number.parseInt(counter.getAttribute("data-target"))
+    const suffix = counter.getAttribute("data-suffix") || ""
+    const increment = target / 100
+    let current = 0
+
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
+        counter.textContent = target + suffix
+        counter.classList.add("animate")
+        clearInterval(timer)
+      } else {
+        counter.textContent = Math.floor(current) + suffix
+      }
+    }, 20)
+  })
+}
+
+function updateLastAccess() {
+  const lastAccessElement = document.getElementById("lastAccess")
+  const now = new Date()
+  const timeString = now.toLocaleTimeString("es-ES", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  })
+  const dateString = now.toLocaleDateString("es-ES", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  })
+
+  lastAccessElement.textContent = `${dateString} ${timeString}`
+}
+
+function updateSystemStatus() {
+  // Simular verificación de estado del sistema
+  const statusElement = document.querySelector(".status-online")
+
+  // Simular ocasionalmente un estado de "mantenimiento"
+  if (Math.random() < 0.05) {
+    // 5% de probabilidad
+    statusElement.textContent = "Mantenimiento"
+    statusElement.style.color = "#f59e0b"
+
+    setTimeout(() => {
+      statusElement.textContent = "En línea"
+      statusElement.style.color = "#10b981"
+    }, 5000)
+  }
+}
+
+// Efectos adicionales para las estadísticas
+document.querySelectorAll(".stat-item").forEach((item) => {
+  item.addEventListener("mouseenter", function () {
+    this.style.transform = "translateY(-5px) scale(1.02)"
+  })
+
+  item.addEventListener("mouseleave", function () {
+    this.style.transform = "translateY(0) scale(1)"
+  })
+})
+
+
