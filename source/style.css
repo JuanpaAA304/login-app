@@ -21,18 +21,44 @@ body {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Sección izquierda - 50% - Vacía para futuras integraciones */
+/* Sección izquierda - 50% - Con imagen de fondo */
 .left-section {
   flex: 1;
   position: relative;
   overflow: hidden;
 }
 
-.background-placeholder {
+.background-image {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(79, 70, 229, 0.8) 0%, rgba(124, 58, 237, 0.8) 100%);
+  background-image: url("./img/QNNVHGLQXZAU7KAP2BZRCV4LLQ.avif");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.8) 0%, rgba(124, 58, 237, 0.8) 100%);
+  z-index: 1;
+}
+
+.background-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 /* Sección derecha - 50% */
@@ -124,11 +150,6 @@ body {
   background: #f9fafb;
 }
 
-/* Específicamente para el input de contraseña, reservar espacio para el botón */
-.input-container:has(.toggle-password) input {
-  padding-right: 3rem;
-}
-
 .input-container input:focus {
   outline: none;
   border-color: #4f46e5;
@@ -153,10 +174,6 @@ body {
   justify-content: center;
   transition: color 0.3s ease;
   z-index: 2;
-}
-
-.toggle-password:hover {
-  color: #4f46e5;
 }
 
 .form-options {
@@ -312,6 +329,12 @@ body {
     min-height: 300px;
     flex: none;
     order: 1;
+  }
+
+  .background-image {
+    background-position: center center;
+    height: 100%;
+    width: 100%;
   }
 
   .right-section {
